@@ -1,8 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "姓、名を登録すると、姓名が取得できること" do
-    user = User.new(name: 'テスト太郎')
-    expect(user.name).to eq 'テスト太郎'
+  describe '#save' do
+    let(:user) { build(:user)}
+    it { expect(user.save).to be_truthy }
+  end
+
+  describe 'バリデーション' do
+    describe 'name' do
+      let(:user) { build(:user, name: nil)}
+      it { expect(user.valid?).to be_falsey }
+    end
   end
 end
